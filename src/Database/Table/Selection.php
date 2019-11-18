@@ -396,6 +396,18 @@ class Selection implements \Iterator, IRowContainer, \ArrayAccess, \Countable
 
 
 	/**
+	 * Sets custom index which wil by used in selection
+	 * @param  string  $index  for example 'custom_index'
+	 * @return static
+	 */
+	public function useIndex($index)
+	{
+		$this->emptyResultSet();
+		$this->sqlBuilder->useIndex($index);
+		return $this;
+	}
+
+	/**
 	 * Adds order clause, more calls appends to the end.
 	 * @param  string for example 'column1, column2 DESC'
 	 * @return static

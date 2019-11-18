@@ -32,6 +32,9 @@ class SqlBuilder
 	/** @var string delimited table name */
 	protected $delimitedTable;
 
+	/** @var string */
+	protected $useIndex = '';
+
 	/** @var array of column to select */
 	protected $select = [];
 
@@ -232,7 +235,7 @@ class SqlBuilder
 		}
 
 		$queryJoins = $this->buildQueryJoins($joins, $finalJoinConditions);
-		$query = "{$querySelect} FROM {$this->delimitedTable}{$queryJoins}{$queryCondition}{$queryEnd}";
+		$query = "{$querySelect} FROM {$this->useIndex}{$this->delimitedTable}{$queryJoins}{$queryCondition}{$queryEnd}";
 
 		$this->driver->applyLimit($query, $this->limit, $this->offset);
 
@@ -485,6 +488,9 @@ class SqlBuilder
 		$this->reservedTableNames[$tableName] = $chain;
 	}
 
+	public function useIndex($index){
+		$this->useIndex = ' USE INDEX(' . $index . ') ';
+	}
 
 	public function addOrder($columns, ...$params)
 	{
