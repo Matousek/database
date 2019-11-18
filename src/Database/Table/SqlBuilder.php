@@ -235,7 +235,7 @@ class SqlBuilder
 		}
 
 		$queryJoins = $this->buildQueryJoins($joins, $finalJoinConditions);
-		$query = "{$querySelect} FROM {$this->useIndex}{$this->delimitedTable}{$queryJoins}{$queryCondition}{$queryEnd}";
+		$query = "{$querySelect} FROM {$this->delimitedTable}{$this->useIndex}{$queryJoins}{$queryCondition}{$queryEnd}";
 
 		$this->driver->applyLimit($query, $this->limit, $this->offset);
 
