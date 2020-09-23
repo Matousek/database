@@ -5,6 +5,8 @@
  * @dataProvider? databases.ini
  */
 
+declare(strict_types=1);
+
 use Tester\Assert;
 
 require __DIR__ . '/connect.inc.php'; // create $connection
@@ -26,5 +28,5 @@ test(function () use ($context) {
 	$context->query('DELETE FROM book');
 	$context->commit();
 
-	Assert::false($context->fetchField('SELECT id FROM book WHERE id = ', 3));
+	Assert::null($context->fetchField('SELECT id FROM book WHERE id = ', 3));
 });

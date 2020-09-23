@@ -4,6 +4,8 @@
  * Test: Nette\Database test bootstrap.
  */
 
+declare(strict_types=1);
+
 require __DIR__ . '/../bootstrap.php';
 
 
@@ -28,7 +30,7 @@ $context = new Nette\Database\Context($connection, $structure, $conventions, $ca
 
 
 /** Replaces [] with driver-specific quotes */
-function reformat($s)
+function reformat($s): string
 {
 	global $driverName;
 	if (is_array($s)) {
@@ -41,7 +43,7 @@ function reformat($s)
 		return strtr($s, '[]', '``');
 	} elseif ($driverName === 'pgsql') {
 		return strtr($s, '[]', '""');
-	} elseif ($driverName === 'sqlsrv' || $driverName === 'sqlite' || $driverName === 'sqlite2') {
+	} elseif ($driverName === 'sqlsrv' || $driverName === 'sqlite') {
 		return $s;
 	} else {
 		trigger_error("Unsupported driver $driverName", E_USER_WARNING);

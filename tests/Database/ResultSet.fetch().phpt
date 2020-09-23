@@ -5,6 +5,8 @@
  * @dataProvider? databases.ini
  */
 
+declare(strict_types=1);
+
 use Tester\Assert;
 
 require __DIR__ . '/connect.inc.php'; // create $connection
@@ -75,4 +77,11 @@ test(function () use ($connection, $driverName) {
 	Assert::error(function () use ($res) {
 		$res->fetch();
 	}, E_USER_NOTICE, $message);
+});
+
+
+test(function () use ($connection, $driverName) {
+	$res = $connection->query('SELECT id FROM author WHERE id = ?', 666);
+
+	Assert::null($res->fetch());
 });

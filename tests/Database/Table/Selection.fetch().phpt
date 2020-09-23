@@ -5,6 +5,8 @@
  * @dataProvider? ../databases.ini
  */
 
+declare(strict_types=1);
+
 use Tester\Assert;
 
 require __DIR__ . '/../connect.inc.php'; // create $connection
@@ -20,4 +22,5 @@ test(function () use ($context) {
 	}
 
 	Assert::same(['PHP'], $tags);
+	Assert::null($context->table('book')->where('title', 'Nonexistent')->fetch());
 });

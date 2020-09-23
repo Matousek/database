@@ -4,6 +4,8 @@
  * Test: Nette\Database\Structure
  */
 
+declare(strict_types=1);
+
 use Mockery\MockInterface;
 use Nette\Database\Structure;
 use Tester\Assert;
@@ -14,7 +16,7 @@ require __DIR__ . '/../bootstrap.php';
 
 class StructureMock extends Structure
 {
-	protected function needStructure()
+	protected function needStructure(): void
 	{
 		if (!$this->structure) {
 			$this->structure = $this->loadStructure();
@@ -66,8 +68,8 @@ class StructureSchemasTestCase extends TestCase
 		$this->connection->shouldReceive('getSupplementalDriver')->times(2)->andReturn($this->driver);
 		$this->driver->shouldReceive('getForeignKeys')->with('authors.authors')->once()->andReturn([]);
 		$this->driver->shouldReceive('getForeignKeys')->with('books.books')->once()->andReturn([
-			['local' => 'author_id', 'table' => 'authors.authors', 'foreign' => 'id'],
-			['local' => 'translator_id', 'table' => 'authors.authors', 'foreign' => 'id'],
+			['local' => 'author_id', 'table' => 'authors.authors', 'foreign' => 'id', 'name' => 'authors_authors_fk1'],
+			['local' => 'translator_id', 'table' => 'authors.authors', 'foreign' => 'id', 'name' => 'authors_authors_fk2'],
 		]);
 
 		$this->structure = new StructureMock($this->connection, $this->storage);
@@ -111,5 +113,5 @@ class StructureSchemasTestCase extends TestCase
 }
 
 
-$test = new StructureSchemasTestCase();
+$test = new StructureSchemasTestCase;
 $test->run();

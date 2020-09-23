@@ -5,6 +5,8 @@
  * @dataProvider? ../databases.ini
  */
 
+declare(strict_types=1);
+
 use Tester\Assert;
 
 require __DIR__ . '/../connect.inc.php'; // create $connection
@@ -88,7 +90,7 @@ test(function () use ($context) {
 	$author = $context->table('author')->get(11);
 	$books = $author->related('book')->where('translator_id', 11);
 	Assert::same('1001 tipu a triku pro PHP', $books->fetch()->title);
-	Assert::false($books->fetch());
+	Assert::null($books->fetch());
 
 	Assert::same('1001 tipu a triku pro PHP', $author->related('book')->fetch()->title);
 

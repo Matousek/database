@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // The Nette Tester command-line runner can be
 // invoked through the command: ../vendor/bin/tester .
 
@@ -30,7 +32,7 @@ function before(\Closure $function = null)
 }
 
 
-function test(\Closure $function)
+function test(\Closure $function): void
 {
 	before();
 	$function();
