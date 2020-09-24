@@ -415,7 +415,7 @@ class Selection implements \Iterator, IRowContainer, \ArrayAccess, \Countable
 	public function order($columns, ...$params)
 	{
 		$this->emptyResultSet();
-		$this->sqlBuilder->addOrder($this->context->getConnection()->getPdo()->quote($columns), ...$params);
+		$this->sqlBuilder->addOrder($columns, ...$params);
 		return $this;
 	}
 
